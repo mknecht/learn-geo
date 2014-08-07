@@ -1,0 +1,15 @@
+img {
+    height: 100%;
+}
+
+svg {
+    position: absolute;
+}
+
+svg circle {
+    fill-opacity: .3;
+    fill: #AA0050;
+    stroke: #AA0050;
+    stroke-opacity: .2;
+    stroke-width: 1;
+}
