@@ -29,5 +29,5 @@ gulp.task('test', ['jshint'], function() {
   gulp
   .src("tests/*-spec.js")
   .on('error', gutil.log)
-  .pipe(mocha({ui:'bdd'}))
+  .pipe(mocha({reporter:'tap', ui:'bdd'}))
 })
