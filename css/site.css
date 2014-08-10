@@ -12,4 +12,5 @@ svg circle {
     stroke: #AA0050;
     stroke-opacity: .2;
     stroke-width: 1;
+    cursor: crosshair;
 }
