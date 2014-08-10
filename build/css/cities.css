@@ -1,0 +1,24 @@
+img {
+    height: 100%;
+}
+
+svg {
+    position: absolute;
+}
+
+svg#cursor-shadow circle {
+    fill-opacity: .3;
+    fill: #AA0050;
+    stroke: #AA0050;
+    stroke-opacity: .2;
+    stroke-width: 1;
+    cursor: crosshair;
+}
+
+svg circle.city {
+    fill-opacity: .5;
+    fill: #885500;
+    stroke: #885500;
+    stroke-opacity: .8;
+    stroke-width: 1;
+}
