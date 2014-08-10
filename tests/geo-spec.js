@@ -1,12 +1,6 @@
 var LatLon = require('mt-latlon')
 var learngeo = require('../js/geo')
 
-var auckland = new LatLon(-36.840417, 174.739869)
-var wellington = new LatLon(-41.288889, 174.777222)
-
-var nw = new LatLon(-34, 165.8)
-var se = new LatLon(-48.3, 179.4)
-
 var should = require('should')
 
 GRAD = 1
@@ -66,6 +60,9 @@ describe("Coordinate mapping module: 0,0 -> 50,50", function() {
   var height = 100
   var width = 100
   
+  var auckland = new LatLon(-36.840417, 174.739869)
+  var wellington = new LatLon(-41.288889, 174.777222)
+
   it("Factory is defined", function() {
     learngeo.createMapping(ne, sw, width, height)
     .should.be.ok
@@ -82,6 +79,42 @@ describe("Coordinate mapping module: 0,0 -> 50,50", function() {
     should.deepEqual(
       learngeo.createMapping(ne, sw, width, height).worldToLocal(new LatLon(south, west)),
       [0, height]
+    )
+  });
+  
+  it("Southeast corner is ([image width],[image height])", function() {
+    should.deepEqual(
+      learngeo.createMapping(ne, sw, width, height).worldToLocal(new LatLon(south, east)),
+      [width, height]
+    )
+  });
+});
+
+describe("Coordinate mapping module: NZ relief map", function() {
+  var north = -34
+  var west = 165.8
+  var south = -48.3
+  var east = 179.4
+  var sw = new LatLon(south, west)
+  var ne = new LatLon(north, east)
+  var height = 1514
+  var width = 1200
+  
+  var auckland = new LatLon(-36.840417, 174.739869)
+  var wellington = new LatLon(-41.288889, 174.777222)
+
+  
+  it("Auckland", function() {
+    should.deepEqual(
+      learngeo.createMapping(ne, sw, width, height).worldToLocal(auckland),
+      [789,301]
+    )
+  });
+  
+  it("Wellington", function() {
+    should.deepEqual(
+      learngeo.createMapping(ne, sw, width, height).worldToLocal(wellington),
+      [792,772]
     )
   });
 });
