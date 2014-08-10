@@ -1,0 +1,17 @@
+{
+  "name": "learn-geo",
+  "version": "0.0.1",
+  "license": "MIT",
+  "dependencies": {
+    "mt-latlon": "0.0.3"
+  },
+  "main": "js/geo.js",
+  "devDependencies": {
+    "should": "~4.0.4",
+    "gulp-mocha": "~0.5.2",
+    "gulp": "~3.8.7",
+    "browserify": "~5.9.1",
+    "gulp-util": "~3.0.0",
+    "vinyl-source-stream": "~0.1.1"
+  }
+}
