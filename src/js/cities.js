@@ -6,6 +6,7 @@
   
   $(function() {
     var app = angular.module('citiesApp', [])
+    
     app.factory('globalState', function () {
       return {
         height: ($('body').innerWidth() / 1200) * 1514,
@@ -27,7 +28,7 @@
       function($scope, globalState) {
         var levels = {
           easy: {
-            layers: ['topo-map', 'selection']
+            layers: ['topo-map', 'selection', 'markers']
           },
           crazy: {
             layers: ['blank-map', 'selection']
@@ -36,8 +37,16 @@
             layers: ['menu']
           },
           solution: {
-            layers: ['topo-map', 'solution']
+            layers: ['topo-map', 'markers', 'labels']
           }
+        }
+
+        if ("onhashchange" in window) {
+          window.addEventListener("hashchange", function(event) {
+            var u = event.newURL
+            globalState.level = u.indexOf('#') !== -1 ? u.substring(u.indexOf('#') + 1) : 'menu'
+            $scope.$apply()
+          }, false);
         }
 
         function updateScope() {
@@ -100,7 +109,7 @@
       ]
     })
 
-    app.controller('SolutionCtrl', [
+    app.controller('CityMarkersCtrl', [
       '$scope', 'cities', 'globalState',
       function($scope, cities, globalState) {
         var north = -34

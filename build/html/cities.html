@@ -16,7 +16,7 @@
     <svg ng-controller="SvgCtrl" style="display:block" ng-attr-width="{{ width }}" ng-attr-height="{{ height }}" xmlns:xlink="http://www.w3.org/1999/xlink">
       <image ng-controller="TopoMapCtrl" x="0" y="0" ng-attr-width="{{ width }}" ng-attr-height="{{ height }}" preserveAspectRatio="xMaxYMin" xlink:href="../images/nz_relief_map.jpg" ng-if="layers.indexOf('topo-map') !== -1"/>
       <image ng-controller="BlankMapCtrl" x="0" y="0" ng-attr-width="{{ width }}" ng-attr-height="{{ height }}" preserveAspectRatio="xMaxYMin" xlink:href="../images/nz_blank_map.svg" ng-if="layers.indexOf('blank-map') !== -1"/>
-      <g ng-controller="SolutionCtrl" ng-if="layers.indexOf('solution') !== -1">
+      <g ng-controller="CityMarkersCtrl" ng-if="layers.indexOf('markers') !== -1">
 	<circle class="city" ng-attr-cx="{{ city.cx }}px" ng-attr-cy="{{ city.cy }}px" ng-attr-r="{{ city.r }}px" ng-repeat="city in cities"/>
       </g>
       <g ng-controller="SelectCtrl" ng-if="layers.indexOf('selection') !== -1">
