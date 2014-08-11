@@ -30,34 +30,35 @@ gulp.task('build', ['browserify:app', 'jshint'], function() {
 })
 
 gulp.task('jshint', function() {
-  gulp
+  return gulp
   .src("src/js/*.js")
   .on('error', gutil.log)
   .pipe(jshint({asi: true}))
   .pipe(jshint.reporter('default'))
-  })
+  .pipe(jshint.reporter("fail"))
+})
 
 gulp.task('test', ['jshint'], function() {
-  gulp
+  return gulp
   .src("src/tests/*-spec.js")
   .on('error', gutil.log)
   .pipe(mocha({reporter:'tap', ui:'bdd'}))
 })
 
 gulp.task('serve', ['build'], function() {
-  connect.server({
+  return connect.server({
     root: ['./'],
     livereload: true
   })
 })
 
 gulp.task('reload', ['build'], function () {
-  gulp.src(sources)
+  return gulp.src(sources)
     .pipe(connect.reload());
 })
 
 gulp.task('watch', ['build'], function () {
-  gulp.watch(sources, ['reload']);
+  return gulp.watch(sources, ['reload']);
 })
 
 gulp.task('default', ['watch', 'serve'])
