@@ -1,10 +1,11 @@
 /*global jQuery, Snap */
 
-(function(w, $, d3, LatLon, learngeo) {
+(function(w, $, d3, angular, LatLon, learngeo) {
   "use strict";
   var $w = $(window);
   $(function() {
     function setupMouse() {
+      console.log("setting up mouse!")
       var svg = d3.select('body')
                 .append('svg')
                 .attr('id', 'cursor-shadow')
@@ -71,13 +72,53 @@
       .attr('cy', function (d) { return mapping.worldToLocal(d.loc)[1] + 'px'})
     }
 
-    setupMap()
-    setupMouse()
+    var app = angular.module('citiesApp', [])
+    app.factory('globalState', function () {
+      return {
+        level: 'menu'
+      }
+    })
+    
+    /* Menu */
+    app.factory('menuItems', function() {
+      return [
+        {anchor: "solution", label: "View Solution", selectsLevel: 'solution'},
+        {anchor: "easy", label: "Easy Test", selectsLevel: 'easy'}
+      ]
+    })
+    app.controller('LevelCtrl', [
+      '$scope', 'globalState',
+      function($scope, globalState) {
+        var levels = {
+          menu: function() {
+          },
+          solution: function() {
+            setupMap()
+            setupMouse()
+          }
+        }
+        
+        $scope.currentLevel = globalState.level
+        $scope.globalState = globalState
+        $scope.$watch('globalState.level', function() {
+          $scope.currentLevel = globalState.level
+          levels[globalState.level]()
+        })
+      }])
+    app.controller('MenuCtrl', [
+      '$scope', 'globalState', 'menuItems',
+      function($scope, globalState, menuItems) {
+        $scope.items = menuItems
+        $scope.select = function(item) {
+          globalState.level = item.selectsLevel
+        }
+      }])
   })
   
 })(window,
    require('jquery'),
    require('d3'),
+   require('angular'),
    require('mt-latlon'),
    require('./geo')
   )

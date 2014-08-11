@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="citiesApp">
   <head>
     <meta charset="utf-8">
     <title>Place Cities on Relief Map</title>
@@ -9,6 +9,11 @@
     <script src="../js/vendor/modernizr.js"></script>
     <script src="../js/cities.js"></script>
   </head>
-  <body>
+  <body ng-controller="LevelCtrl">
+    <div ng-if="currentLevel=='menu'">
+      <ul ng-controller="MenuCtrl">
+	<li ng-repeat="item in items"><a href="#{{ item.anchor }}" ng-click="select(item)">{{ item.label }}</a></li>
+      </ul>
+    </div>
   </body>
 </html>
