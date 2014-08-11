@@ -102,30 +102,48 @@
       }        
     ])
 
-    app.factory('cities', function() {
+    app.factory('cities', ['globalState', function(globalState) {
+      var north = -34
+      var west = 165.8
+      var south = -48.3
+      var east = 179.4
+      var sw = new LatLon(south, west)
+      var ne = new LatLon(north, east)
+      var mapping = learngeo.createMapping(ne, sw, globalState.width, globalState.height)
       return [
-        {name: "Auckland", loc: new LatLon(-36.840417, 174.739869), size: 30},
-        {name: "Wellington", loc: new LatLon(-41.288889, 174.777222), size: 10}
-      ]
-    })
+        {label: "Auckland", loc: new LatLon(-36.840417, 174.739869), radius: 30},
+        {label: "Wellington", loc: new LatLon(-41.288889, 174.777222), radius: 10}
+      ].map(
+        function(city) {
+          city.local = mapping.worldToLocal(city.loc)
+          return city
+        })
+    }])
 
     app.controller('CityMarkersCtrl', [
       '$scope', 'cities', 'globalState',
       function($scope, cities, globalState) {
-        var north = -34
-        var west = 165.8
-        var south = -48.3
-        var east = 179.4
-        var sw = new LatLon(south, west)
-        var ne = new LatLon(north, east)
         $scope.cities = cities.map(
           function(city) {
-            var mapping = learngeo.createMapping(ne, sw, globalState.width, globalState.height)
-            var local = mapping.worldToLocal(city.loc)
             return {
-              cx: local[0],
-              cy: local[1],
-              r: city.size
+              cx: city.local[0],
+              cy: city.local[1],
+              r: city.radius
+            }
+          }
+        )
+      }])
+
+    app.controller('CityLabelsCtrl', [
+      '$scope', 'cities', 'globalState',
+      function($scope, cities, globalState) {
+        $scope.cities = cities.map(
+          function(city) {
+            return {
+              label: city.label,
+              fontsize: Math.max(city.radius, 15),
+              x: city.local[0] + city.radius + 10,
+              y: city.local[1] + (city.radius * .5) | 0
             }
           }
         )

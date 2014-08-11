@@ -14,3 +14,9 @@ circle.city {
     stroke-opacity: .8;
     stroke-width: 1;
 }
+
+text.citylabel {
+    font-family: Verdana;
+    font-weight: bold;
+    fill: #BB5500;
+}

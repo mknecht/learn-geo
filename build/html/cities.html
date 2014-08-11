@@ -17,7 +17,10 @@
       <image ng-controller="TopoMapCtrl" x="0" y="0" ng-attr-width="{{ width }}" ng-attr-height="{{ height }}" preserveAspectRatio="xMaxYMin" xlink:href="../images/nz_relief_map.jpg" ng-if="layers.indexOf('topo-map') !== -1"/>
       <image ng-controller="BlankMapCtrl" x="0" y="0" ng-attr-width="{{ width }}" ng-attr-height="{{ height }}" preserveAspectRatio="xMaxYMin" xlink:href="../images/nz_blank_map.svg" ng-if="layers.indexOf('blank-map') !== -1"/>
       <g ng-controller="CityMarkersCtrl" ng-if="layers.indexOf('markers') !== -1">
-	<circle class="city" ng-attr-cx="{{ city.cx }}px" ng-attr-cy="{{ city.cy }}px" ng-attr-r="{{ city.r }}px" ng-repeat="city in cities"/>
+	<circle class="city" ng-attr-cx="{{ city.cx }}" ng-attr-cy="{{ city.cy }}" ng-attr-r="{{ city.r }}" ng-repeat="city in cities"/>
+      </g>
+      <g ng-controller="CityLabelsCtrl" ng-if="layers.indexOf('labels') !== -1">
+	<text class="citylabel" ng-attr-x="{{ city.x }}" ng-attr-y="{{ city.y }}" font-size="{{ city.fontsize }}" ng-repeat="city in cities">{{ city.label }}</text>
       </g>
       <g ng-controller="SelectCtrl" ng-if="layers.indexOf('selection') !== -1">
 	<circle id="cursor-shadow" ng-attr-cx="{{ cx }}" ng-attr-cy="{{ cy }}" ng-attr-r="{{ r }}"/>
