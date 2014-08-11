@@ -8,11 +8,16 @@ circle#cursor-shadow {
 }
 
 circle.city {
+    cursor: pointer;
     fill-opacity: .5;
     fill: #885500;
     stroke: #885500;
     stroke-opacity: .8;
     stroke-width: 1;
+}
+
+circle.city:hover {
+    fill-opacity: .9;
 }
 
 text.citylabel {

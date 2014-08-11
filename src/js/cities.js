@@ -28,7 +28,7 @@
       function($scope, globalState) {
         var levels = {
           easy: {
-            layers: ['topo-map', 'selection', 'markers']
+            layers: ['topo-map', 'markers']
           },
           crazy: {
             layers: ['blank-map', 'selection']
@@ -64,6 +64,7 @@
         $scope.items = menuItems
         $scope.select = function(item) {
           globalState.level = item.selectsLevel
+          window.location.hash = '#' + item.selectsLevel
         }
       }])
     

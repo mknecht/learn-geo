@@ -8,11 +8,16 @@ circle#cursor-shadow {
 }
 
 circle.city {
+    cursor: pointer;
     fill-opacity: .5;
     fill: #885500;
     stroke: #885500;
     stroke-opacity: .8;
     stroke-width: 1;
+}
+
+circle.city:hover {
+    fill-opacity: .9;
 }
 
 text.citylabel {
@@ -30,9 +35,10 @@ ul.menu {
 li.menuitem {
     background-color: #88CC44;
     border: solid 8pt black;
+    border-radius: 50px 0px 50px 0px;
     padding: 1em;
     margin: 10pt;
-    border-radius: 30px;
+    font-weight: bold;
     text-align: center;
 }
 
