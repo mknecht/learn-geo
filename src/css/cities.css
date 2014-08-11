@@ -20,3 +20,22 @@ text.citylabel {
     font-weight: bold;
     fill: #BB5500;
 }
+
+ul.menu {
+   font-size: 1.8em;
+   list-style-type: none;
+   margin: 1em 30% 1em 30%;
+}
+
+li.menuitem {
+    background-color: #88CC44;
+    border: solid 8pt black;
+    padding: 1em;
+    margin: 10pt;
+    border-radius: 30px;
+}
+
+li.menuitem:hover {
+    background-color: #AAFF44;
+    cursor: pointer;
+}

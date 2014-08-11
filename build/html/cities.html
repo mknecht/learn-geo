@@ -10,8 +10,8 @@
     <script src="../js/cities.js"></script>
   </head>
   <body ng-controller="LevelCtrl">
-    <ul ng-controller="MenuCtrl" ng-if="layers.indexOf('menu') !== -1">
-      <li ng-repeat="item in items"><a href="#{{ item.anchor }}" ng-click="select(item)">{{ item.label }}</a></li>
+    <ul ng-controller="MenuCtrl" class="menu" ng-if="layers.indexOf('menu') !== -1">
+      <li ng-repeat="item in items" class="menuitem" ng-click="select(item)">{{ item.label }}</li>
     </ul>
     <svg ng-controller="SvgCtrl" style="display:block" ng-attr-width="{{ width }}" ng-attr-height="{{ height }}" xmlns:xlink="http://www.w3.org/1999/xlink">
       <image ng-controller="TopoMapCtrl" x="0" y="0" ng-attr-width="{{ width }}" ng-attr-height="{{ height }}" preserveAspectRatio="xMaxYMin" xlink:href="../images/nz_relief_map.jpg" ng-if="layers.indexOf('topo-map') !== -1"/>
