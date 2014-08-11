@@ -9,7 +9,7 @@
     app.factory('globalState', function () {
       return {
         height: ($('body').innerWidth() / 1200) * 1514,
-        level: window.location.hash.substring(1),
+        level: window.location.hash.substring(1) || 'menu',
         width: $('body').innerWidth()
       }
     })
