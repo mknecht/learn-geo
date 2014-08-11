@@ -6,7 +6,12 @@ jshint = require('gulp-jshint')
 source = require('vinyl-source-stream')
 mocha = require('gulp-mocha')
 
-var sources = ['./src/html/*.html', './src/js/*.js', './src/css/*.css']
+var sources = [
+  './src/html/*.html',
+  './src/js/*.js',
+  './src/css/*.css',
+  './src/images/*.{png,jpg,svg}'
+]
 
 gulp.task('browserify:app', function() {
   browserify('./src/js/cities.js', {debug:true})
@@ -20,7 +25,7 @@ gulp.task('build', ['browserify:app', 'jshint'], function() {
   gulp.src('src/css/*.css').pipe(gulp.dest('build/css/'))
   gulp.src('src/css/vendor/*.css').pipe(gulp.dest('build/css/vendor/'))
   gulp.src('src/html/*.html').pipe(gulp.dest('build/html/'))
-  gulp.src('src/images/*.jpg').pipe(gulp.dest('build/images/'))
+  gulp.src('src/images/*.{jpg,png,svg}').pipe(gulp.dest('build/images/'))
   gulp.src('src/js/vendor/*.js').pipe(gulp.dest('build/js/vendor/'))
 })
 

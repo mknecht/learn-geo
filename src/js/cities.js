@@ -8,7 +8,7 @@
     var app = angular.module('citiesApp', [])
     app.factory('globalState', function () {
       return {
-        height: 1700,
+        height: ($('body').innerWidth() / 1200) * 1514,
         level: window.location.hash.substring(1),
         width: $('body').innerWidth()
       }
@@ -18,7 +18,8 @@
     app.factory('menuItems', function() {
       return [
         {anchor: "solution", label: "View Solution", selectsLevel: 'solution'},
-        {anchor: "easy", label: "Easy Test", selectsLevel: 'easy'}
+        {anchor: "easy", label: "Easy Test", selectsLevel: 'easy'},
+        {anchor: "crazy", label: "Crazy Test", selectsLevel: 'crazy'}
       ]
     })
     app.controller('LevelCtrl', [
@@ -26,13 +27,16 @@
       function($scope, globalState) {
         var levels = {
           easy: {
-            layers: ['map', 'selection']
+            layers: ['topo-map', 'selection']
+          },
+          crazy: {
+            layers: ['blank-map', 'selection']
           },
           menu: {
             layers: ['menu']
           },
           solution: {
-            layers: ['map', 'solution']
+            layers: ['topo-map', 'solution']
           }
         }
 
@@ -75,7 +79,15 @@
       "$scope",
       "globalState",
       function ($scope, globalState) {
-        $scope.id = 'nz-map'
+        $scope.width = globalState.width
+        $scope.height = globalState.height
+      }        
+    ])
+    
+    app.controller('BlankMapCtrl', [
+      "$scope",
+      "globalState",
+      function ($scope, globalState) {
         $scope.width = globalState.width
         $scope.height = globalState.height
       }        
