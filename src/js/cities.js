@@ -144,7 +144,7 @@
               label: city.label,
               fontsize: Math.max(city.radius, 15),
               x: city.local[0] + city.radius + 10,
-              y: city.local[1] + (city.radius * .5) | 0
+              y: city.local[1] + (city.radius * 0.5) | 0
             }
           }
         )
