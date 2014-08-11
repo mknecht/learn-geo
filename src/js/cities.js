@@ -18,9 +18,9 @@
     /* Menu */
     app.factory('menuItems', function() {
       return [
-        {anchor: "solution", label: "View Solution", selectsLevel: 'solution'},
-        {anchor: "easy", label: "Easy Test", selectsLevel: 'easy'},
-        {anchor: "crazy", label: "Crazy Test", selectsLevel: 'crazy'}
+        {anchor: "easy", label: "Easy", selectsLevel: 'easy'},
+        {anchor: "crazy", label: "Crazy", selectsLevel: 'crazy'},
+        {anchor: "solution", label: "View Solution", selectsLevel: 'solution'}
       ]
     })
     app.controller('LevelCtrl', [
