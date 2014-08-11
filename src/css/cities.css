@@ -1,8 +1,4 @@
-svg {
-    position: absolute;
-}
-
-svg#cursor-shadow circle {
+circle#cursor-shadow {
     fill-opacity: .3;
     fill: #AA0050;
     stroke: #AA0050;
@@ -11,7 +7,7 @@ svg#cursor-shadow circle {
     cursor: crosshair;
 }
 
-svg circle.city {
+circle.city {
     fill-opacity: .5;
     fill: #885500;
     stroke: #885500;
