@@ -13,3 +13,5 @@ The relief map of New Zealand I took from [Wikipedia](http://de.wikipedia.org/wi
 
 http://de.wikipedia.org/wiki/Vorlage:Positionskarte_Neuseeland
 http://de.wikipedia.org/wiki/Datei:New_Zealand_location_map.svg
+
+[NZ Relief map without regions courtesy of NASA](http://earthobservatory.nasa.gov/IOTD/view.php?id=5227) 
