@@ -55,3 +55,26 @@ li.menuitem:hover {
     right: 50px;
     width: 20%;
 }
+
+.back {
+    color: #882200;
+    font-family: Times New Roman;
+    font-size: 50px;
+    font-weight: bold;
+    left: 0px;
+    width: 45px;
+    height: 45px;
+    overflow: none;
+    margin: 0px 15px;
+    position: fixed;
+    top: 0px;
+}
+
+.back button {
+    background-color: transparent;
+    border: none;
+}
+
+.back:hover {
+   color: black;
+}
