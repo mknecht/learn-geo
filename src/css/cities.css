@@ -42,7 +42,6 @@ ul.menu {
    font-size: 1.4em;
    list-style-type: none;
    margin: 1em 35% 1em 35%;
-   width: 250px;
 }
 
 li.menuitem {
@@ -68,6 +67,10 @@ li.menuitem:hover {
     top: 150px; 
     right: 50px;
     width: 20%;
+}
+
+.epilog {
+    margin-top: 2em;
 }
 
 .back {
