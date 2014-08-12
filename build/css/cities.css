@@ -82,9 +82,11 @@ li.menuitem:hover {
 .question {
     color: #882200;
     font-size: 1.5em;
-    left: 15px;
+    left: 0px;
     position: fixed;
-    top: 100px;
+    text-align: center;
+    top: 20px;
+    width: 100%;
 }
 
 .question .city {
