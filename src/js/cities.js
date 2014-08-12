@@ -148,12 +148,28 @@
       var ne = new LatLon(north, east)
       var mapping = learngeo.createMapping(ne, sw, globalState.width, globalState.height)
       return [
-        {label: "Auckland", loc: new LatLon(-36.840417, 174.739869), radius: 30},
-        {label: "Wellington", loc: new LatLon(-41.288889, 174.777222), radius: 10}
+        {label: "Auckland", loc: new LatLon(-36.840417, 174.739869), area: 1086},
+        {label: "Christchurch", loc: new LatLon(-43.53, 172.620278), area: 608},
+        {label: "Dunedin", loc: new LatLon( -45.866667, 170.5), area: 255},
+        {label: "Gisborne", loc: new LatLon(-38.6625, 178.017778), area: 85},
+        {label: "Hamilton", loc: new LatLon(-37.783333, 175.283333), area: 877},
+        {label: "Invercargill", loc: new LatLon(-46.413056, 168.3475), area: 123},
+        {label: "Napier-Hasting", loc: new LatLon(-39.583333, 176.85), area: 375},
+        {label: "Nelson", loc: new LatLon(-41.270833, 173.283889), area: 146},
+        {label: "New Plymouth", loc: new LatLon(-39.066667, 174.083333), area: 112},
+        {label: "Oban", loc: new LatLon(-46.9, 168.133333), area: 17},
+        {label: "Hamilton", loc: new LatLon(-37.783333, 175.283333), area: 877},
+        {label: "Rotorua", loc: new LatLon(-38.137778, 176.251389), area: 89},
+        {label: "Tauranga", loc: new LatLon(-37.683333, 176.166667), area: 178},
+        {label: "Wellington", loc: new LatLon(-41.288889, 174.777222), area: 444},
+        {label: "Whanganui", loc: new LatLon(-39.933333, 175.05), area: 105},
+        {label: "Whangarai", loc: new LatLon(-35.725, 174.323611), area: 133}
       ].map(
         function(city) {
-          city.local = mapping.worldToLocal(city.loc)
-          return city
+          var copy = $.extend({}, city)
+          copy.local = mapping.worldToLocal(city.loc)
+          copy.radius = Math.max(10, ((city.area/30) | 0))
+          return copy
         })
     }])
 

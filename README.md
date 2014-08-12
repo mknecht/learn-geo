@@ -18,3 +18,6 @@ http://de.wikipedia.org/wiki/Datei:New_Zealand_location_map.svg
 
 
 More maps: http://commons.wikimedia.org/wiki/File:Map_of_New_Zealand_%28blank%29.svg
+
+
+List of cities: http://en.wikipedia.org/wiki/List_of_cities_in_New_Zealand
