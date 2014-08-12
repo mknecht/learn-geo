@@ -34,7 +34,8 @@
     /* Menu */
     app.factory('menuItems', [
       "$sce",
-      function($sce) {
+      "levels",
+      function($sce, levels) {
         return [
           {anchor: "easy",
            label: "Easy",
@@ -59,6 +60,10 @@
           {anchor: "solution", label: "View Solution", selectsLevel: 'solution'}
         ].map(function (item) {
                  var c = $.extend({}, item)
+                 if (c.selectsLevel && levels[c.selectsLevel].selectionRadiusInKm) {
+                   c.explanation += "<br>(The radius of selection is " +
+                     levels[c.selectsLevel].selectionRadiusInKm + "km.)"
+                 }
                  c.explanation = $sce.trustAsHtml(c.explanation)
                  return c
                })
