@@ -46,7 +46,7 @@ Is my derivation of latter location map from NordNordWest. (I removed the region
 Attributions
 ------------
 
-Thanks to Wikipedia for providing one of the few free maps!
+Thanks to Wikipedia for being one of the few providersd of free maps!
 
 src/images/nz_relief_map.jpg
 [Wikipedia](http://de.wikipedia.org/wiki/Datei:New_Zealand_relief_map.jpg)
@@ -56,8 +56,6 @@ src/images/nz_location_map.svg
 [Wikipedia](http://de.wikipedia.org/wiki/Datei:New_Zealand_location_map.svg)
 published under CC-by-SA 3.0 by the user NordNordWest
 
+[The list of cities on Wikipedia](http://en.wikipedia.org/wiki/List_of_cities_in_New_Zealand), well, plus Oban.
 
-More maps: http://commons.wikimedia.org/wiki/File:Map_of_New_Zealand_%28blank%29.svg
 
-
-List of cities: http://en.wikipedia.org/wiki/List_of_cities_in_New_Zealand
