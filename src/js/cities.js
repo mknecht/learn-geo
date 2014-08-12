@@ -52,13 +52,13 @@
       function($scope, globalState) {
         var levels = {
           easy: {
-            layers: ['topo-map', 'markers']
+            layers: ['topo-map', 'markers', 'question']
           },
           challenging: {
-            layers: ['location-map', 'selection']
+            layers: ['location-map', 'selection', 'question']
           },
           crazy: {
-            layers: ['blank-map', 'selection']
+            layers: ['blank-map', 'selection', 'question']
           },
           menu: {
             layers: ['menu']
@@ -215,7 +215,14 @@
             $scope.cx = newpos.x
             $scope.cy = newpos.y
         }, true)
-    }])
+      }])
+
+    app.controller('QandACtrl', [
+      '$scope',
+      function($scope) {
+        var choices = ['Auckland', 'Christchurch', 'Oban', 'Wellington']
+        $scope.city = choices[(Math.random() * choices.length) | 0]
+      }])
   })
   
 })(window,

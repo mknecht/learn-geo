@@ -21,6 +21,9 @@
     <div ng-if="layers.indexOf('menu') === -1" class="back">
       <button ng-click="globalState.level = 'menu'">«</button>
     </div>
+    <div ng-controller="QandACtrl" ng-if="layers.indexOf('question') !== -1" class="question">
+      Where is <span class="city">{{ city }}</span>?
+    </div>
     <svg ng-controller="SvgCtrl" style="display:block" ng-attr-width="{{ width }}" ng-attr-height="{{ height }}" xmlns:xlink="http://www.w3.org/1999/xlink">
       <image ng-controller="TopoMapCtrl" x="0" y="0" ng-attr-width="{{ width }}" ng-attr-height="{{ height }}" preserveAspectRatio="xMaxYMin" xlink:href="../images/nz_relief_map.jpg" ng-if="layers.indexOf('topo-map') !== -1"/>
       <image ng-controller="LocationMapCtrl" x="0" y="0" ng-attr-width="{{ width }}" ng-attr-height="{{ height }}" preserveAspectRatio="xMaxYMin" xlink:href="../images/nz_location_map.svg" ng-if="layers.indexOf('location-map') !== -1"/>
