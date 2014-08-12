@@ -1,6 +1,11 @@
 Learning New Zealand Geography Demo
 ===================================
 
+Short Intro: A [demo](http://mknecht.github.io/learn-geo/build/html/cities.html#menu) showing some of my ideas on how to learn geography related knowledge.
+
+Intro
+-----
+
 Geography for me boils down to a gaping hole in my mind.
 I'm quite illiterate when it comes to the countries and cities
 of this planet.
