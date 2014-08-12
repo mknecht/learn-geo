@@ -25,6 +25,9 @@
             window.location.hash = '#' + newLevel
             state.wantedLabel = choose(['Auckland', 'Christchurch', 'Oban', 'Wellington'])
             state.selectionRadius = levels[newLevel].selectionRadiusInKm;
+            if (levels[newLevel].init) {
+              levels[newLevel].init()
+            }
           }
 
           setLevel(window.location.hash.substring(1) || 'menu')
@@ -83,6 +86,9 @@
             selectionRadiusInKm: 10
           },
           menu: {
+            init: function() {
+              $("html, body").animate({ scrollTop: 0 }, "slow");
+            },
             layers: ['menu']
           },
           solution: {
