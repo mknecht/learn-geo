@@ -130,6 +130,15 @@
       }        
     ])
 
+    app.controller('LocationMapCtrl', [
+      "$scope",
+      "globalState",
+      function ($scope, globalState) {
+        $scope.width = globalState.width
+        $scope.height = globalState.height
+      }        
+    ])
+
     app.factory('cities', ['globalState', function(globalState) {
       var north = -34
       var west = 165.8
