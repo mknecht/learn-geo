@@ -1,3 +1,4 @@
+/** Copyright (c) 2014 Murat Knecht, MIT license */
 var LatLon = require('mt-latlon')
 var learngeo = require('../js/geo')
 

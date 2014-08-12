@@ -1,4 +1,5 @@
 /*global jQuery, Snap */
+/* Copyright (c) 2014 Murat Knecht, MIT license */
 
 (function(w, $, d3, angular, LatLon, learngeo) {
   "use strict";

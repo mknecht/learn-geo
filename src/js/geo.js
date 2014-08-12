@@ -1,3 +1,5 @@
+/** Copyright (c) 2014 Murat Knecht, MIT license */
+
 ;(function (root) {
   var geomod = module.exports
   var LatLon = require('mt-latlon')
