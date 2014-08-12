@@ -27,6 +27,13 @@
                     "All cities are <b>marked</b>.<br>" + 
                     "<b>Select</b> the right one!<br>"
         },
+        {anchor: "challenging",
+         label: "Challenging",
+         selectsLevel: 'challenging',
+         explanation: "<b>Location map</b> with region borders, no terrain, no markers.<br>" +
+                    "<b>Point</b> to the right location.<br>" +
+                    "Don't worry, we're <b>not overly picky</b>!"
+        },
         {anchor: "crazy",
          label: "Crazy",
          selectsLevel: 'crazy',
@@ -46,6 +53,9 @@
         var levels = {
           easy: {
             layers: ['topo-map', 'markers']
+          },
+          challenging: {
+            layers: ['location-map', 'selection']
           },
           crazy: {
             layers: ['blank-map', 'selection']
