@@ -10,9 +10,14 @@
     <script src="../js/cities.js"></script>
   </head>
   <body ng-controller="LevelCtrl">
-    <ul ng-controller="MenuCtrl" class="menu" ng-if="layers.indexOf('menu') !== -1">
-      <li ng-repeat="item in items" class="menuitem" ng-click="select(item)">{{ item.label }}</li>
-    </ul>
+    <div ng-controller="MenuCtrl" ng-if="layers.indexOf('menu') !== -1">
+      <ul class="menu" >
+	<li ng-repeat="item in items" class="menuitem" ng-mouseenter="item.showExplanation = true" ng-mouseleave="item.showExplanation = false" ng-click="select(item)">{{ item.label }}</li>
+      </ul>
+      <div class="explanation">
+	<span ng-repeat="item in items" ng-if="item.explanation !== undefined && item.showExplanation" ng-bind-html="item.explanation"></span>
+      </div>
+    </div>
     <svg ng-controller="SvgCtrl" style="display:block" ng-attr-width="{{ width }}" ng-attr-height="{{ height }}" xmlns:xlink="http://www.w3.org/1999/xlink">
       <image ng-controller="TopoMapCtrl" x="0" y="0" ng-attr-width="{{ width }}" ng-attr-height="{{ height }}" preserveAspectRatio="xMaxYMin" xlink:href="../images/nz_relief_map.jpg" ng-if="layers.indexOf('topo-map') !== -1"/>
       <image ng-controller="BlankMapCtrl" x="0" y="0" ng-attr-width="{{ width }}" ng-attr-height="{{ height }}" preserveAspectRatio="xMaxYMin" xlink:href="../images/nz_blank_map.svg" ng-if="layers.indexOf('blank-map') !== -1"/>

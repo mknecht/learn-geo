@@ -16,13 +16,30 @@
     })
     
     /* Menu */
-    app.factory('menuItems', function() {
+    app.factory('menuItems', [
+      "$sce",
+      function($sce) {
       return [
-        {anchor: "easy", label: "Easy", selectsLevel: 'easy'},
-        {anchor: "crazy", label: "Crazy", selectsLevel: 'crazy'},
+        {anchor: "easy",
+         label: "Easy",
+         selectsLevel: 'easy',
+         explanation:"<b>Topographic map</b> with region borders.<br>" +
+                    "All cities are <b>marked</b>.<br>" + 
+                    "<b>Select</b> the right one!<br>"
+        },
+        {anchor: "crazy",
+         label: "Crazy",
+         selectsLevel: 'crazy',
+         explanation:"<b>Outline map</b>, no terrain, no regions, no markers.<br>" +
+                    "<b>Point</b> to the right location, but <b>be precise</b>!"
+        },
         {anchor: "solution", label: "View Solution", selectsLevel: 'solution'}
-      ]
-    })
+      ].map(function (item) {
+               var c = $.extend({}, item)
+               c.explanation = $sce.trustAsHtml(c.explanation)
+               return c
+             })
+    }])
     app.controller('LevelCtrl', [
       '$scope', 'globalState',
       function($scope, globalState) {
