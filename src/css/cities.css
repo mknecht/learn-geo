@@ -92,3 +92,31 @@ li.menuitem:hover {
 .question .city {
     font-weight: bold;
 }
+
+.answer {
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.answer .stripe {
+    padding: 150px 0 0 0;
+}
+
+.answer .text, .answer .tagline {
+    background-color: rgba(206, 104, 70, .5);
+    color: #882200;
+    padding: 1em;
+    text-align: center;
+}
+
+.answer .text {
+    font-size: 1.5em;
+}
+
+.answer .tagline {
+    font-size: 2em;
+    padding: 20px;
+}

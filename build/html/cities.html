@@ -11,8 +11,8 @@
   </head>
   <body ng-controller="LevelCtrl">
     <div ng-controller="MenuCtrl" ng-if="layers.indexOf('menu') !== -1">
-      <ul class="menu" >
-	<li ng-repeat="item in items" class="menuitem" ng-mouseenter="item.showExplanation = true" ng-mouseleave="item.showExplanation = false" ng-click="select(item)">{{ item.label }}</li>
+      <ul class="menu">
+	<li ng-repeat="item in items" class="menuitem" ng-mouseenter="item.showExplanation = true" ng-mouseleave="item.showExplanation = false" ng-click="selectMenuItem(item)">{{ item.label }}</li>
       </ul>
       <div class="explanation">
 	<span ng-repeat="item in items" ng-if="item.explanation !== undefined && item.showExplanation" ng-bind-html="item.explanation"></span>
@@ -21,15 +21,23 @@
     <div ng-if="layers.indexOf('menu') === -1" class="back">
       <button ng-click="globalState.level = 'menu'">«</button>
     </div>
-    <div ng-controller="QandACtrl" ng-if="layers.indexOf('question') !== -1" class="question">
-      Where is <span class="city">{{ city }}</span>?
+    <div ng-controller="QandACtrl" >
+      <div ng-if="layers.indexOf('question') !== -1" class="question">
+	Where is <span class="city">{{ wantedLabel }}</span>?
+      </div>
+      <div ng-if="layers.indexOf('answer') !== -1" class="answer">
+	<div class="stripe">
+	  <div class="text">{{ answer }}</div>
+	  <div class="tagline">{{ tagline }}</div>
+	</div>
+      </div>
     </div>
     <svg ng-controller="SvgCtrl" style="display:block" ng-attr-width="{{ width }}" ng-attr-height="{{ height }}" xmlns:xlink="http://www.w3.org/1999/xlink">
       <image ng-controller="TopoMapCtrl" x="0" y="0" ng-attr-width="{{ width }}" ng-attr-height="{{ height }}" preserveAspectRatio="xMaxYMin" xlink:href="../images/nz_relief_map.jpg" ng-if="layers.indexOf('topo-map') !== -1"/>
       <image ng-controller="LocationMapCtrl" x="0" y="0" ng-attr-width="{{ width }}" ng-attr-height="{{ height }}" preserveAspectRatio="xMaxYMin" xlink:href="../images/nz_location_map.svg" ng-if="layers.indexOf('location-map') !== -1"/>
       <image ng-controller="BlankMapCtrl" x="0" y="0" ng-attr-width="{{ width }}" ng-attr-height="{{ height }}" preserveAspectRatio="xMaxYMin" xlink:href="../images/nz_blank_map.svg" ng-if="layers.indexOf('blank-map') !== -1"/>
       <g ng-controller="CityMarkersCtrl" ng-if="layers.indexOf('markers') !== -1">
-	<circle class="city" ng-attr-cx="{{ city.cx }}" ng-attr-cy="{{ city.cy }}" ng-attr-r="{{ city.r }}" ng-repeat="city in cities"/>
+	<circle class="city" ng-attr-cx="{{ marker.cx }}" ng-attr-cy="{{ marker.cy }}" ng-attr-r="{{ marker.r }}" ng-click="selectCity(marker.city)" ng-repeat="marker in markers"/>
       </g>
       <g ng-controller="CityLabelsCtrl" ng-if="layers.indexOf('labels') !== -1">
 	<text class="citylabel" ng-attr-x="{{ city.x }}" ng-attr-y="{{ city.y }}" font-size="{{ city.fontsize }}" ng-repeat="city in cities">{{ city.label }}</text>
