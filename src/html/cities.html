@@ -10,7 +10,10 @@
     <script src="../js/cities.js"></script>
   </head>
   <body ng-controller="LevelCtrl">
-    <div ng-controller="MenuCtrl" ng-if="layers.indexOf('menu') !== -1">
+    <div ng-controller="MenuCtrl" ng-if="layers.indexOf('menu') !== -1" class="menu">
+      <h1>Learning New Zealand Geography Demo</h1>
+      <p class="intro">Improving my geography knowledge at <a href="http://www.memrise.com">Memrise</a>, I had some ideas on how to improve the experience further. So, I built this demo - with New Zealand cities as example.<br>
+	See the <a href="https://github.com/mknecht/learn-geo">project page</a> for a tiny discussion, license details and sources.</p>
       <ul class="menu">
 	<li ng-repeat="item in items" class="menuitem" ng-mouseenter="item.showExplanation = true" ng-mouseleave="item.showExplanation = false" ng-click="selectMenuItem(item)">{{ item.label }}</li>
       </ul>

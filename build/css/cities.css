@@ -25,10 +25,23 @@ text.citylabel {
     fill: #BB5500;
 }
 
+.menu h1 {
+    font-size: 1.7em;
+}
+
+div.menu {
+    text-align: center;
+}
+
+.menu p.intro {
+    padding: 0 20%;
+}
+
 ul.menu {
    font-size: 1.4em;
    list-style-type: none;
-   margin: 1em 30% 1em 30%;
+   margin: 1em 35% 1em 35%;
+   width: 250px;
 }
 
 li.menuitem {
@@ -50,7 +63,8 @@ li.menuitem:hover {
     border: solid 1px back;
     font-size: 1.2em;
     position: absolute;
-    top: 50px;
+    text-align: left;
+    top: 150px; 
     right: 50px;
     width: 20%;
 }
