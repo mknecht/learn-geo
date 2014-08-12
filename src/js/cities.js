@@ -11,22 +11,25 @@
   $(function() {
     var app = angular.module('citiesApp', [])
     
-    app.factory('globalState', function () {
-      var state = {
-        height: ($('body').innerWidth() / 1200) * 1514,
-        selectionRadius: 100,
-        setLevel: setLevel,
-        width: $('body').innerWidth()
-      }
-      function setLevel(newLevel) {
-        state.level = newLevel
-        window.location.hash = '#' + newLevel
-        state.wantedLabel = choose(['Auckland', 'Christchurch', 'Oban', 'Wellington'])
-      }
+    app.factory(
+      'globalState', [
+        'levels',
+        function (levels) {
+          var state = {
+            height: ($('body').innerWidth() / 1200) * 1514,
+            setLevel: setLevel,
+            width: $('body').innerWidth()
+          }
+          function setLevel(newLevel) {
+            state.level = newLevel
+            window.location.hash = '#' + newLevel
+            state.wantedLabel = choose(['Auckland', 'Christchurch', 'Oban', 'Wellington'])
+            state.selectionRadius = levels[newLevel].selectionRadiusInKm;
+          }
 
-      setLevel(window.location.hash.substring(1) || 'menu')
-      return state
-    })
+          setLevel(window.location.hash.substring(1) || 'menu')
+          return state
+        }])
     
     /* Menu */
     app.factory('menuItems', [
@@ -60,18 +63,19 @@
                  return c
                })
       }])
-    app.controller('LevelCtrl', [
-      '$scope', 'globalState',
-      function($scope, globalState) {
-        var levels = {
+
+    app.factory('levels', function() {
+        return {
           easy: {
             layers: ['topo-map', 'markers', 'question', 'clickable-selection']
           },
           challenging: {
-            layers: ['location-map', 'selection', 'question']
+            layers: ['location-map', 'selection', 'question'],
+            selectionRadiusInKm: 50
           },
           crazy: {
-            layers: ['blank-map', 'selection', 'question']
+            layers: ['blank-map', 'selection', 'question'],
+            selectionRadiusInKm: 10
           },
           menu: {
             layers: ['menu']
@@ -80,6 +84,11 @@
             layers: ['topo-map', 'markers', 'labels']
           }
         }
+    })      
+    
+    app.controller('LevelCtrl', [
+      '$scope', 'globalState', 'levels',
+      function($scope, globalState, levels) {
 
         if ("onhashchange" in window) {
           window.addEventListener("hashchange", function(event) {
@@ -232,8 +241,24 @@
     app.controller('SelectCtrl', [
       '$scope',
       'globalState',
-      function($scope, globalState) {
-        $scope.r = 20
+      'mapping',
+      function($scope, globalState, mapping) {
+        function getPixelForDistance(distance) {
+          var initial = mapping.localToWorld([0,0])
+          var destLocal = mapping.worldToLocal(
+            initial.rhumbDestinationPoint(0, distance)
+          )
+          return Math.sqrt(Math.abs(Math.pow(destLocal[0],2)) +
+                           Math.abs(Math.pow(destLocal[1],2)))
+        }
+        
+        $scope.$watch(
+          function() {
+            return globalState.selectionRadius
+          },
+          function (newRadiusInKm) {
+            $scope.r = getPixelForDistance(newRadiusInKm)
+          })
         $scope.$watch(
           function() {
             return globalState.mouse
