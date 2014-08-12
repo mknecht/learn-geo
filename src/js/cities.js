@@ -12,11 +12,20 @@
     var app = angular.module('citiesApp', [])
     
     app.factory('globalState', function () {
-      return {
+      var state = {
         height: ($('body').innerWidth() / 1200) * 1514,
-        level: window.location.hash.substring(1) || 'menu',
+        selectionRadius: 100,
+        setLevel: setLevel,
         width: $('body').innerWidth()
       }
+      function setLevel(newLevel) {
+        state.level = newLevel
+        window.location.hash = '#' + newLevel
+        state.wantedLabel = choose(['Auckland', 'Christchurch', 'Oban', 'Wellington'])
+      }
+
+      setLevel(window.location.hash.substring(1) || 'menu')
+      return state
     })
     
     /* Menu */
@@ -56,7 +65,7 @@
       function($scope, globalState) {
         var levels = {
           easy: {
-            layers: ['topo-map', 'markers', 'question']
+            layers: ['topo-map', 'markers', 'question', 'clickable-selection']
           },
           challenging: {
             layers: ['location-map', 'selection', 'question']
@@ -84,6 +93,7 @@
           $scope.currentLevel = globalState.level
           $scope.layers = $.extend([], levels[globalState.level].layers)
         }
+        $scope.name = "levelc"
         updateScope()
         $scope.globalState = globalState
         $scope.$watch('globalState.level', updateScope)
@@ -94,8 +104,7 @@
       function($scope, globalState, menuItems) {
         $scope.items = menuItems
         $scope.selectMenuItem = function(item) {
-          globalState.level = item.selectsLevel
-          window.location.hash = '#' + item.selectsLevel
+          globalState.setLevel(item.selectsLevel)
         }
       }])
     
@@ -105,6 +114,7 @@
       "$element",
       "$document",
       function ($scope, globalState, $element, $document) {
+        $scope.name = "svgc"
         $scope.width = globalState.width
         $scope.height = globalState.height
         globalState.mouse = {x: 200, y:200}
@@ -143,39 +153,46 @@
       }        
     ])
 
-    app.factory('cities', ['globalState', function(globalState) {
-                                            var north = -34
-                                            var west = 165.8
-                                            var south = -48.3
-                                            var east = 179.4
-                                            var sw = new LatLon(south, west)
-                                            var ne = new LatLon(north, east)
-                                            var mapping = learngeo.createMapping(ne, sw, globalState.width, globalState.height)
-                                            return [
-                                              {label: "Auckland", loc: new LatLon(-36.840417, 174.739869), area: 1086},
-                                              {label: "Christchurch", loc: new LatLon(-43.53, 172.620278), area: 608},
-                                              {label: "Dunedin", loc: new LatLon( -45.866667, 170.5), area: 255},
-                                              {label: "Gisborne", loc: new LatLon(-38.6625, 178.017778), area: 85},
-                                              {label: "Hamilton", loc: new LatLon(-37.783333, 175.283333), area: 877},
-                                              {label: "Invercargill", loc: new LatLon(-46.413056, 168.3475), area: 123},
-                                              {label: "Napier-Hasting", loc: new LatLon(-39.583333, 176.85), area: 375},
-                                              {label: "Nelson", loc: new LatLon(-41.270833, 173.283889), area: 146},
-                                              {label: "New Plymouth", loc: new LatLon(-39.066667, 174.083333), area: 112},
-                                              {label: "Oban", loc: new LatLon(-46.9, 168.133333), area: 17},
-                                              {label: "Hamilton", loc: new LatLon(-37.783333, 175.283333), area: 877},
-                                              {label: "Rotorua", loc: new LatLon(-38.137778, 176.251389), area: 89},
-                                              {label: "Tauranga", loc: new LatLon(-37.683333, 176.166667), area: 178},
-                                              {label: "Wellington", loc: new LatLon(-41.288889, 174.777222), area: 444},
-                                              {label: "Whanganui", loc: new LatLon(-39.933333, 175.05), area: 105},
-                                              {label: "Whangarai", loc: new LatLon(-35.725, 174.323611), area: 133}
-                                            ].map(
-                                              function(city) {
-                                                var copy = $.extend({}, city)
-                                                copy.local = mapping.worldToLocal(city.loc)
-                                                copy.radius = Math.max(10, ((city.area/30) | 0))
-                                                return copy
-                                              })
-                                          }])
+    app.factory('mapping', [
+      'globalState',
+      function(globalState) {
+        var north = -34
+        var west = 165.8
+        var south = -48.3
+        var east = 179.4
+        var sw = new LatLon(south, west)
+        var ne = new LatLon(north, east)
+        return learngeo.createMapping(ne, sw, globalState.width, globalState.height)
+      }])
+
+    app.factory('cities', [
+      'mapping',
+      function(mapping) {
+        return [
+          {label: "Auckland", loc: new LatLon(-36.840417, 174.739869), area: 1086},
+          {label: "Christchurch", loc: new LatLon(-43.53, 172.620278), area: 608},
+          {label: "Dunedin", loc: new LatLon( -45.866667, 170.5), area: 255},
+          {label: "Gisborne", loc: new LatLon(-38.6625, 178.017778), area: 85},
+          {label: "Hamilton", loc: new LatLon(-37.783333, 175.283333), area: 877},
+          {label: "Invercargill", loc: new LatLon(-46.413056, 168.3475), area: 123},
+          {label: "Napier-Hasting", loc: new LatLon(-39.583333, 176.85), area: 375},
+          {label: "Nelson", loc: new LatLon(-41.270833, 173.283889), area: 146},
+          {label: "New Plymouth", loc: new LatLon(-39.066667, 174.083333), area: 112},
+          {label: "Oban", loc: new LatLon(-46.9, 168.133333), area: 17},
+          {label: "Palmerston North", loc: new LatLon(-40.355, 175.611667), area: 178},
+          {label: "Rotorua", loc: new LatLon(-38.137778, 176.251389), area: 89},
+          {label: "Tauranga", loc: new LatLon(-37.683333, 176.166667), area: 178},
+          {label: "Wellington", loc: new LatLon(-41.288889, 174.777222), area: 444},
+          {label: "Whanganui", loc: new LatLon(-39.933333, 175.05), area: 105},
+          {label: "Whangarai", loc: new LatLon(-35.725, 174.323611), area: 133}
+        ].map(
+          function(city) {
+            var copy = $.extend({}, city)
+            copy.local = mapping.worldToLocal(city.loc)
+            copy.radius = Math.max(10, ((city.area/30) | 0))
+            return copy
+          })
+      }])
 
     app.controller('CityMarkersCtrl', [
       '$scope', 'cities', 'globalState',
@@ -190,7 +207,11 @@
             }
           }
         )
-        $scope.selectCity = function (city) { return globalState.selectAnswer(city) }
+        $scope.selectCity = function (city) {
+          if ($scope.layers.indexOf('clickable-selection') !== -1) {
+            globalState.selectAnswer(city)
+          }
+        }
       }])
 
     app.controller('CityLabelsCtrl', [
@@ -223,35 +244,93 @@
           }, true)
       }])
 
-    app.controller('QandACtrl', [
-      '$scope',
+    app.factory('response', [
       'globalState',
-      function($scope, globalState) {
-        var positive_tagline = [
+      function(globalState) {
+        var positive_taglines = [
           "Done like a Kiwi!",
           "Good job!",
           "Master of Geography!"
         ]
-        var negative_tagline = [
+        var negative_taglines = [
           "No worries! A Tui wouldn't have known either!",
           "Try again! It's been a long day, hasn't it?",
           "It's okay. Next time you'll guess right!"
         ]
-        var choices = ['Auckland', 'Christchurch', 'Oban', 'Wellington']
-        $scope.answer = ""
-        $scope.tagline = ""
-        $scope.wantedLabel = choose(choices)
-        globalState.selectAnswer = function(city) {
-          var iscorrect = city.label === $scope.wantedLabel
-          $scope.answer = (iscorrect ? "Jup, that's " +  city.label : "Nope, that's " + city.label)
-          $scope.tagline = choose(iscorrect ? positive_tagline : negative_tagline)
-          // At the end, so the layer is properly set up when shown.
-          $scope.layers.push('answer')
 
+        var data = {
+          correct: function($scope, label) {
+            setModelToRespond(
+              $scope,
+              "Jup, that's " +  label,
+              positive_taglines
+            )
+          },
+          wrong: function($scope, answer) {
+            setModelToRespond(
+              $scope,
+              answer,
+              negative_taglines
+            )
+          }
+        }
+
+        function setModelToRespond($scope, answer, taglines) {
+          data.answer = answer
+          data.tagline = choose(taglines)
+          // At the end, so the layer is properly set up when shown.
+          $scope.layers.push('markers')
+          $scope.layers.push('labels')
+          $scope.layers.push('answer')
           setTimeout(function() {
-            globalState.level = 'menu'
-            $scope.$apply()
+            globalState.setLevel('menu')
           }, 3000)
+        }
+        return data
+      }])
+
+    app.controller('QandACtrl', [
+      '$scope',
+      'globalState',
+      'mapping',
+      'cities',
+      'response',
+      function($scope, globalState, mapping, cities, response) {
+        $scope.response = response
+        $scope.name = "qanda"
+        $scope.globalState = globalState
+        $scope.selectPosition = function(event) {
+          var worldCoord = mapping.localToWorld([event.clientX, event.clientY + $w.scrollTop()])
+          var selectionRadiusInKm = 30;
+          var cities_and_distances = cities.map(
+            function(city) {
+              return [city, city.loc.distanceTo(worldCoord) - city.radius]
+            }).sort(
+              function(left, right) {
+                return left[1] - right[1]
+              })
+          var winningLabel = cities_and_distances[0][0].label
+          var winningDistance = cities_and_distances[0][1]
+          if (winningLabel === globalState.wantedLabel) {
+            if (winningDistance < globalState.selectionRadius) {
+              response.correct($scope, winningLabel)
+            } else {
+              response.wrong($scope, "It's the nearest, but you missed it.")
+            }
+          } else {
+            if (winningDistance < globalState.selectionRadius) {
+              response.wrong($scope, "Nope, that is " + winningLabel + ".")
+            } else {
+              response.wrong($scope, "Nope, the nearest city is " + winningLabel + ".")
+            }
+          }
+        }
+        globalState.selectAnswer = function(city) {
+          if (city.label === globalState.wantedLabel) {
+            response.correct($scope, city.label)
+          } else {
+            response.wrong($scope, "Nope, that is " + city.label + ".")
+          }
         }
       }])
   })

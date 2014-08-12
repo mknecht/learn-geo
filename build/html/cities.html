@@ -19,16 +19,16 @@
       </div>
     </div>
     <div ng-if="layers.indexOf('menu') === -1" class="back">
-      <button ng-click="globalState.level = 'menu'">«</button>
+      <button ng-click="globalState.setLevel('menu')">«</button>
     </div>
     <div ng-controller="QandACtrl" >
       <div ng-if="layers.indexOf('question') !== -1" class="question">
-	Where is <span class="city">{{ wantedLabel }}</span>?
+	Where is <span class="city">{{ globalState.wantedLabel }}</span>?
       </div>
       <div ng-if="layers.indexOf('answer') !== -1" class="answer">
 	<div class="stripe">
-	  <div class="text">{{ answer }}</div>
-	  <div class="tagline">{{ tagline }}</div>
+	  <div class="text">{{ response.answer }}</div>
+	  <div class="tagline">{{ response.tagline }}</div>
 	</div>
       </div>
     </div>
@@ -45,6 +45,7 @@
       <g ng-controller="SelectCtrl" ng-if="layers.indexOf('selection') !== -1">
 	<circle id="cursor-shadow" ng-attr-cx="{{ cx }}" ng-attr-cy="{{ cy }}" ng-attr-r="{{ r }}"/>
       </g>
+      <rect ng-controller="QandACtrl" x="0" y="0" ng-attr-width="{{ width }}" ng-attr-height="{{ height }}" class="selection-overlay" ng-click="selectPosition($event)" ng-if="layers.indexOf('selection') !== -1"/>
     </svg>
   </body>
 </html>

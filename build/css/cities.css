@@ -4,7 +4,6 @@ circle#cursor-shadow {
     stroke: #AA0050;
     stroke-opacity: .2;
     stroke-width: 1;
-    cursor: crosshair;
 }
 
 circle.city {
@@ -119,4 +118,10 @@ li.menuitem:hover {
 .answer .tagline {
     font-size: 2em;
     padding: 20px;
+}
+
+rect.selection-overlay {
+    cursor: crosshair;
+    fill: transparent;
+    stroke: transparent;
 }

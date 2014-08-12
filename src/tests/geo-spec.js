@@ -50,7 +50,7 @@ describe("Simplify coordinates by making them positive", function() {
   })
 })
 
-describe("Coordinate mapping module: 0,0 -> 50,50", function() {
+describe("Mapping module", function() {
   var north = 50 * GRAD
   var west = 0 * GRAD
   var south = 0 * GRAD
@@ -59,38 +59,48 @@ describe("Coordinate mapping module: 0,0 -> 50,50", function() {
   var ne = new LatLon(north, east)
   var height = 100
   var width = 100
-  
-  var auckland = new LatLon(-36.840417, 174.739869)
-  var wellington = new LatLon(-41.288889, 174.777222)
 
   it("Factory is defined", function() {
     learngeo.createMapping(ne, sw, width, height)
     .should.be.ok
   });
+})
+
+describe("Mapping world to local: 0,0 -> 50,50", function() {
+  var north = 50 * GRAD
+  var west = 0 * GRAD
+  var south = 0 * GRAD
+  var east = 50 * GRAD
+  var sw = new LatLon(south, west)
+  var ne = new LatLon(north, east)
+  var height = 100
+  var width = 100
+
+  var mapping = learngeo.createMapping(ne, sw, width, height)
   
   it("Northwest corner is (0,0)", function() {
     should.deepEqual(
-      learngeo.createMapping(ne, sw, width, height).worldToLocal(new LatLon(north, west)),
+      mapping.worldToLocal(new LatLon(north, west)),
       [0, 0]
     )
   });
   
   it("Southwest corner is (0,[image height])", function() {
     should.deepEqual(
-      learngeo.createMapping(ne, sw, width, height).worldToLocal(new LatLon(south, west)),
+      mapping.worldToLocal(new LatLon(south, west)),
       [0, height]
     )
   });
   
   it("Southeast corner is ([image width],[image height])", function() {
     should.deepEqual(
-      learngeo.createMapping(ne, sw, width, height).worldToLocal(new LatLon(south, east)),
+      mapping.worldToLocal(new LatLon(south, east)),
       [width, height]
     )
   });
 });
 
-describe("Coordinate mapping module: NZ relief map", function() {
+describe("Mapping world to local: NZ relief map", function() {
   var north = -34
   var west = 165.8
   var south = -48.3
@@ -103,18 +113,53 @@ describe("Coordinate mapping module: NZ relief map", function() {
   var auckland = new LatLon(-36.840417, 174.739869)
   var wellington = new LatLon(-41.288889, 174.777222)
 
+  var mapping = learngeo.createMapping(ne, sw, width, height)
   
   it("Auckland", function() {
     should.deepEqual(
-      learngeo.createMapping(ne, sw, width, height).worldToLocal(auckland),
+      mapping.worldToLocal(auckland),
       [789,301]
     )
   });
   
   it("Wellington", function() {
     should.deepEqual(
-      learngeo.createMapping(ne, sw, width, height).worldToLocal(wellington),
+      mapping.worldToLocal(wellington),
       [792,772]
+    )
+  });
+});
+
+describe("Mapping local to world: 0,0 -> 50,50", function() {
+  var north = 50 * GRAD
+  var west = 0 * GRAD
+  var south = 0 * GRAD
+  var east = 50 * GRAD
+  var sw = new LatLon(south, west)
+  var ne = new LatLon(north, east)
+  var height = 100
+  var width = 100
+
+  var mapping = learngeo.createMapping(ne, sw, width, height)
+
+  it("Northwest corner is (0,0)", function() {
+    should.deepEqual(
+      mapping.localToWorld([0,0]),
+      new LatLon(north, west)
+    )
+  });
+  
+  it("Southwest corner is (0,[image height])", function() {
+    should.deepEqual(
+      mapping.localToWorld([0, height]),
+      new LatLon(south, west)
+    )
+  });
+  
+  it("Southeast corner is ([image width],[image height])", function() {
+    should.deepEqual(
+      mapping.localToWorld([width, height]),
+      new LatLon(south, east)
     )
   });
 });
