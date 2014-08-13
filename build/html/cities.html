@@ -39,9 +39,9 @@
       </div>
     </div>
     <svg ng-controller="SvgCtrl" style="display:block" ng-attr-width="{{ width }}" ng-attr-height="{{ height }}" xmlns:xlink="http://www.w3.org/1999/xlink">
-      <image ng-controller="TopoMapCtrl" x="0" y="0" ng-attr-width="{{ width }}" ng-attr-height="{{ height }}" preserveAspectRatio="xMaxYMin" xlink:href="../images/nz_relief_map.jpg" ng-if="layers.indexOf('topo-map') !== -1"/>
-      <image ng-controller="LocationMapCtrl" x="0" y="0" ng-attr-width="{{ width }}" ng-attr-height="{{ height }}" preserveAspectRatio="xMaxYMin" xlink:href="../images/nz_location_map.svg" ng-if="layers.indexOf('location-map') !== -1"/>
-      <image ng-controller="BlankMapCtrl" x="0" y="0" ng-attr-width="{{ width }}" ng-attr-height="{{ height }}" preserveAspectRatio="xMaxYMin" xlink:href="../images/nz_blank_map.svg" ng-if="layers.indexOf('blank-map') !== -1"/>
+      <image ng-controller="MapCtrl" x="0" y="0" ng-attr-width="{{ width }}" ng-attr-height="{{ height }}" preserveAspectRatio="xMaxYMin" xlink:href="../images/nz_relief_map.jpg" ng-if="layers.indexOf('topo-map') !== -1"/>
+      <image ng-controller="MapCtrl" x="0" y="0" ng-attr-width="{{ width }}" ng-attr-height="{{ height }}" preserveAspectRatio="xMaxYMin" xlink:href="../images/nz_location_map.svg" ng-if="layers.indexOf('location-map') !== -1"/>
+      <image ng-controller="MapCtrl" x="0" y="0" ng-attr-width="{{ width }}" ng-attr-height="{{ height }}" preserveAspectRatio="xMaxYMin" xlink:href="../images/nz_blank_map.svg" ng-if="layers.indexOf('blank-map') !== -1"/>
       <g ng-controller="CityMarkersCtrl" ng-if="layers.indexOf('markers') !== -1">
 	<circle class="city" ng-attr-cx="{{ marker.cx }}" ng-attr-cy="{{ marker.cy }}" ng-attr-r="{{ marker.r }}" ng-click="selectCity(marker.city)" ng-repeat="marker in markers"/>
       </g>

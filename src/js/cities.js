@@ -147,25 +147,7 @@
       }        
     ])
     
-    app.controller('TopoMapCtrl', [
-      "$scope",
-      "globalState",
-      function ($scope, globalState) {
-        $scope.width = globalState.width
-        $scope.height = globalState.height
-      }        
-    ])
-    
-    app.controller('BlankMapCtrl', [
-      "$scope",
-      "globalState",
-      function ($scope, globalState) {
-        $scope.width = globalState.width
-        $scope.height = globalState.height
-      }        
-    ])
-
-    app.controller('LocationMapCtrl', [
+    app.controller('MapCtrl', [
       "$scope",
       "globalState",
       function ($scope, globalState) {
