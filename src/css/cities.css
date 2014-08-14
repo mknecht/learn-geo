@@ -123,7 +123,7 @@ li.menuitem:hover {
 }
 
 .answer .text, .answer .tagline {
-    background-color: rgba(206, 104, 70, .5);
+    background-color: rgba(236, 134, 100, .8);
     color: #882200;
     padding: 1em;
     text-align: center;
