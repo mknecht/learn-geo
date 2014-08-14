@@ -74,28 +74,28 @@
       }])
 
     app.factory('levels', function() {
-        return {
-          easy: {
-            layers: ['topo-map', 'markers', 'question', 'clickable-selection']
+      return {
+        easy: {
+          layers: ['topo-map', 'markers', 'question', 'clickable-selection']
+        },
+        challenging: {
+          layers: ['location-map', 'selection', 'question'],
+          selectionRadiusInKm: 50
+        },
+        crazy: {
+          layers: ['blank-map', 'selection', 'question'],
+          selectionRadiusInKm: 10
+        },
+        menu: {
+          init: function() {
+            $("html, body").animate({ scrollTop: 0 }, "slow");
           },
-          challenging: {
-            layers: ['location-map', 'selection', 'question'],
-            selectionRadiusInKm: 50
-          },
-          crazy: {
-            layers: ['blank-map', 'selection', 'question'],
-            selectionRadiusInKm: 10
-          },
-          menu: {
-            init: function() {
-              $("html, body").animate({ scrollTop: 0 }, "slow");
-            },
-            layers: ['menu']
-          },
-          solution: {
-            layers: ['topo-map', 'markers', 'labels']
-          }
+          layers: ['menu']
+        },
+        solution: {
+          layers: ['topo-map', 'markers', 'labels']
         }
+      }
     })      
     
     app.controller('LevelCtrl', [
@@ -330,17 +330,36 @@
               })
           var winningLabel = cities_and_distances[0][0].label
           var winningDistance = cities_and_distances[0][1]
+          var actualDistance = Math.round(
+            cities_and_distances.reduce(
+              // Only in ECMA6 is there a find?? I am amazed every time.
+              // You gotta love fold, though. :)
+              function(match, candidate) {
+                return (
+                  (match !== undefined) ?
+                    match:
+                    ((candidate[0].label === globalState.wantedLabel) ?
+                     candidate :
+                     undefined))
+              },
+              undefined
+            )[1]
+          );
           if (winningLabel === globalState.wantedLabel) {
             if (winningDistance < globalState.selectionRadius) {
               response.correct($scope, winningLabel)
             } else {
-              response.wrong($scope, "It's the nearest, but you missed it.")
+              response.wrong(
+                $scope,
+                "It's the nearest, but you missed it by " + actualDistance + "km."
+              )
             }
           } else {
+            var textWithActualDistance = " " + globalState.wantedLabel + " is " + actualDistance + "km away.";
             if (winningDistance < globalState.selectionRadius) {
-              response.wrong($scope, "Nope, that is " + winningLabel + ".")
+              response.wrong($scope, "Nope, that is " + winningLabel + "." + textWithActualDistance)
             } else {
-              response.wrong($scope, "Nope, the nearest city is " + winningLabel + ".")
+              response.wrong($scope, "Nope, the nearest city is " + winningLabel + "." + textWithActualDistance)
             }
           }
         }
