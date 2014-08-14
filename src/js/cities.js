@@ -315,6 +315,26 @@
       'cities',
       'response',
       function($scope, globalState, mapping, cities, response) {
+        function setResponse(winningLabel, winningDistance, actualDistance) {
+          if (winningLabel === globalState.wantedLabel) {
+            if (winningDistance < globalState.selectionRadius) {
+              response.correct($scope, winningLabel)
+            } else {
+              response.wrong(
+                $scope,
+                "It's the nearest, but you missed it by " + actualDistance + "km."
+              )
+            }
+          } else {
+            var textWithActualDistance = " " + globalState.wantedLabel + " is " + actualDistance + "km away.";
+            if (winningDistance < globalState.selectionRadius) {
+              response.wrong($scope, "Nope, that is " + winningLabel + "." + textWithActualDistance)
+            } else {
+              response.wrong($scope, "Nope, the nearest city is " + winningLabel + "." + textWithActualDistance)
+            }
+          }
+        }
+
         $scope.response = response
         $scope.name = "qanda"
         $scope.globalState = globalState
@@ -345,23 +365,7 @@
               undefined
             )[1]
           );
-          if (winningLabel === globalState.wantedLabel) {
-            if (winningDistance < globalState.selectionRadius) {
-              response.correct($scope, winningLabel)
-            } else {
-              response.wrong(
-                $scope,
-                "It's the nearest, but you missed it by " + actualDistance + "km."
-              )
-            }
-          } else {
-            var textWithActualDistance = " " + globalState.wantedLabel + " is " + actualDistance + "km away.";
-            if (winningDistance < globalState.selectionRadius) {
-              response.wrong($scope, "Nope, that is " + winningLabel + "." + textWithActualDistance)
-            } else {
-              response.wrong($scope, "Nope, the nearest city is " + winningLabel + "." + textWithActualDistance)
-            }
-          }
+          setResponse(winningLabel, winningDistance, actualDistance);
         }
         globalState.selectAnswer = function(city) {
           if (city.label === globalState.wantedLabel) {
