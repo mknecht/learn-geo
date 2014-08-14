@@ -281,7 +281,7 @@
           correct: function($scope, label) {
             setModelToRespond(
               $scope,
-              "Jup, that's " +  label,
+              "Jup, that's " +  label + ".",
               positive_taglines
             )
           },
