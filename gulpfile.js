@@ -40,7 +40,7 @@ gulp.task('jshint', function() {
 
 gulp.task('test', ['jshint'], function() {
   return gulp
-  .src("src/tests/*-spec.js")
+  .src("tests/*-spec.js")
   .on('error', gutil.log)
   .pipe(mocha({reporter:'tap', ui:'bdd'}))
 })

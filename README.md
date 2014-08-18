@@ -3,6 +3,8 @@ Learning New Zealand Geography Demo
 
 Short Intro: A [demo](http://mknecht.github.io/learn-geo/build/html/cities.html#menu) showing some of my ideas on how to learn geography related knowledge.
 
+For an idea on how to learn directions, have a look at my [direction demo](http://mknecht.github.io/learn-geo-direction/).
+
 Works reasonably well with Firefox 31 and Chromium 36. See Tech section below.
 
 Intro
